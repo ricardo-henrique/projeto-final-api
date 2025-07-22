@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import { AppDataSource } from "./config/data-source";
-import { initializeFirebase } from "./config/firebase";
 import apiRateLimiter from "./middleware/rateLimiter";
 
 import authRoutes from "./routes/authRoutes";
@@ -36,10 +35,11 @@ app.use(errHandling);
 AppDataSource.initialize()
   .then(() => {
     console.log("Banco de dados SQLite conectado com sucesso!");
-    initializeFirebase();
-    console.log("Firebase Admin SDK inicializado com sucesso!");
     app.listen(PORT, () => {
       console.log(`Servidor rodando em http://localhost:${PORT}`);
     });
   })
-  .catch((error) => console.log("Error ao conectar ao banco de dados:", error));
+  .catch((error) => {
+    console.log("Error ao conectar ao banco de dados:", error);
+    process.exit(1);
+  });
