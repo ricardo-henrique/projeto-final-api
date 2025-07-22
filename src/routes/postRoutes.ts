@@ -106,9 +106,6 @@ router.post("/", authMiddleware, upload.single("image"), async (req: Request, re
 router.get("/", async (req: Request, res: Response) => {
   try {
     const posts = await postRepository.find({
-      where: {
-        status: "draft", // Garante que apenas posts publicados são retornados
-      },
       relations: ["author", "category"], // Inclui autor e categoria
       order: {
         createAt: "DESC", // Ordena pelos mais recentes
