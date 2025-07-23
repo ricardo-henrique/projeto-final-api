@@ -5,7 +5,11 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon --exec ts-node src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:run-migrations": "npm run typeorm migration:run -- -d src/config/data-source.ts",
+    "typeorm:generate-migration": "npm run typeorm migration:generate -- -d src/config/data-source.ts",
+    "typeorm:revert-migration": "npm run typeorm migration:revert -- -d src/config/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -21,9 +25,9 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.1",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "slugify": "^1.6.6",
-    "sqlite3": "^5.1.7",
     "typeorm": "^0.3.25"
   },
   "devDependencies": {
@@ -37,6 +41,7 @@
     "@types/node": "^24.0.14",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
 }

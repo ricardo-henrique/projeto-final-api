@@ -5,11 +5,14 @@ import { Post } from "../entity/Posts";
 import { Category } from "../entity/Category";
 
 export const AppDataSource = new DataSource({
-  type: "sqlite",
-  database: "./src/db/cms.sqlite",
-  synchronize: process.env.NODE_ENV !== "production",
+  type: "postgres",
+  url: process.env.DATABASE_URL,
+  synchronize: false,
   logging: false,
   entities: [User, Post, Category],
-  migrations: [],
+  migrations: [__dirname + "/../migration/*.ts"],
   subscribers: [],
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
