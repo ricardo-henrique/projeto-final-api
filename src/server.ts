@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import helmet from "helmet";
 import { AppDataSource } from "./config/data-source";
 import apiRateLimiter from "./middleware/rateLimiter";
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = ["http://localhost:4200", "https://cms-hardware-client.netlify.app"];
 
-const corsOptions: cors.CorsOptions = {
+const corsOptions: CorsOptions = {
   origin: function (origin, callback) {
     // Permite requisições sem origem (como Postman ou requisições de arquivos locais)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
