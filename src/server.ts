@@ -36,7 +36,7 @@ app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use("/api/v1/", apiRateLimiter);
+app.use(apiRateLimiter);
 
 app.get("/", (req, res) => {
   res.send("API do CMS esta funcionando!");
@@ -50,7 +50,7 @@ app.use(errHandling);
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("Banco de dados SQLite conectado com sucesso!");
+    console.log("Banco de dados postgres conectado com sucesso!");
     app.listen(PORT, () => {
       console.log(`Servidor rodando em http://localhost:${PORT}`);
     });
